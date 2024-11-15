@@ -224,11 +224,11 @@ Here's the full output from one of the modified agent's runs:
 -----------------------------------------
 Average reward with custom reward function: 173.52622567371105
 ```
-## Compare the baseline and custom nueral network architecture's performance. How did changing the architecture affect behavior?
+## Compare the baseline and custom neural network architecture's performance. How did changing the architecture affect behavior?
 
-Average reward with custom nueral network architecture: 200.1
+Average reward with custom neural network architecture: 200.1
 
-The modle with a custom nueral network had a higher average reward.
+The model with a custom neural network had a higher average reward.
 
 ```
 ---------------------------------
