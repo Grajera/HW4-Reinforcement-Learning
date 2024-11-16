@@ -329,7 +329,7 @@ Average reward with custom network architecture: 200.1
 ```
 
 ## Overall impact of the modifications
-![Alt text](images\image.png)
+![image info](./images/image.png)
 
 | Configuration            | Average Reward |
 |--------------------------|----------------|
