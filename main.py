@@ -6,6 +6,7 @@ from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.utils import set_random_seed
 import torch as th
 from torch import nn
+import matplotlib.pyplot as plt
 
 
 class CustomCartPoleReward(gym.RewardWrapper):
@@ -44,19 +45,18 @@ class CustomFeatureExtractor(BaseFeaturesExtractor):
 env = gym.make("CartPole-v1")
 
 # Initialize the custom environment
-# render_mode="human"
-# custom_env = CustomCartPoleReward(gym.make("CartPole-v1"))
+custom_env = CustomCartPoleReward(gym.make("CartPole-v1"))
 
 # Set up CartPole as a vectorized environment
 vec_env = make_vec_env("CartPole-v1")
 
 # Define and train the PPO model
-# model = PPO("MlpPolicy", env, verbose=1)
-# model.learn(total_timesteps=10000)
+model = PPO("MlpPolicy", env, verbose=1)
+model.learn(total_timesteps=10000)
 
 # Define and train the custom PPO model
-# custom_model = PPO("MlpPolicy", custom_env, verbose=1)
-# custom_model.learn(total_timesteps=10000)
+custom_model = PPO("MlpPolicy", custom_env, verbose=1)
+custom_model.learn(total_timesteps=10000)
 
 # Modify the policy architecture
 custom_model_architecture = PPO(
@@ -89,15 +89,23 @@ def evaluate_agent(env, model, num_episodes=10):
 
 
 # Evaluate the trained agent and record the average reward
-# average_reward = evaluate_agent(env, model, num_episodes=10)
-# print("Baseline Average Reward:", average_reward)
+average_reward = evaluate_agent(env, model, num_episodes=10)
+print("Baseline Average Reward:", average_reward)
 
-# avg_custom_reward = evaluate_agent(custom_env, custom_model, num_episodes=10)
-# print(f"Average reward with custom reward function: {avg_custom_reward}")
+avg_custom_reward = evaluate_agent(custom_env, custom_model, num_episodes=10)
+print(f"Average reward with custom reward function: {avg_custom_reward}")
 
 # Evaluate the custom model with the custom network architecture
 avg_custom_network = evaluate_agent(env, custom_model_architecture, num_episodes=10)
 print(f"Average reward with custom network architecture: {avg_custom_network}")
+
+rewards = [average_reward, avg_custom_reward, avg_custom_network]
+labels = ["Baseline", "Custom Reward", "Custom Architecture"]
+
+plt.bar(labels, rewards, color=['blue', 'orange', 'green'])
+plt.ylabel("Average Reward")
+plt.title("Comparison of Different Configurations")
+plt.show()
 
 # Close the environment after evaluation
 env.close()

@@ -7,7 +7,7 @@ Group Members:
 
 ## Running the program
 
-In order to run the program, install the following packages: `gym`, `gymnasium`, `pandas`, and `stable-baselines3`.
+In order to run the program, install the following packages: `matplotlib`, `gym`, `gymnasium`, `numpy`, `torch`, and `stable-baselines3`.
 
 Then, run
 
@@ -115,7 +115,7 @@ Wrapping the env in a DummyVecEnv.
 |    policy_gradient_loss | -0.0179      |
 |    value_loss           | 63.3         |
 ------------------------------------------
-Baseline Average Reward: 174.8
+Baseline Average Reward: 156.7
 ```
 
 ## Compare the baseline and modified agent’s performance. How did changing the reward function affect behavior?
@@ -124,6 +124,8 @@ Baseline Average Reward: 156.7
 Average reward with custom reward function: 165.9
 
 The average rewards have been pretty similar. Both seem to vary quite a bit each time we run the program. The custom reward function seems to end up with a higher reward more often than the baseline reward function, but it depends on the run and they are often pretty close.
+
+While the improvement is modest, it demonstrates that customizing the reward structure can encourage different behaviors, such as better balance and upright positioning. However, the results showed some variability across runs, with rewards occasionally being close to the baseline.
 
 Here's the full output from one of the modified agent's runs:
 
@@ -226,9 +228,7 @@ Average reward with custom reward function: 173.52622567371105
 ```
 ## Compare the baseline and custom neural network architecture's performance. How did changing the architecture affect behavior?
 
-Average reward with custom neural network architecture: 200.1
-
-The model with a custom neural network had a higher average reward.
+The custom neural network architecture significantly enhanced the agent's performance, achieving an average reward of 200.1, which is notably higher than both the baseline reward and the reward with the custom reward function. This improvement highlights the impact of increasing model complexity and tailoring the network's structure to better capture the environment's dynamics.
 
 ```
 ---------------------------------
@@ -327,3 +327,18 @@ The model with a custom neural network had a higher average reward.
 -----------------------------------------
 Average reward with custom network architecture: 200.1
 ```
+
+## Overall impact of the modifications
+![Alt text](images\image.png)
+
+| Configuration            | Average Reward |
+|--------------------------|----------------|
+| Baseline Reward          | 156.7          |
+| Custom Reward Function   | 165.9          |
+| Custom Neural Network    | 200.1          |
+
+The custom reward function provided a moderate improvement over the baseline, demonstrating that tuning the reward can guide the agent toward desirable behaviors.
+
+The custom neural network architecture had a more substantial impact, yielding the highest average reward and showcasing the importance of model design in reinforcement learning tasks.
+
+The variability in results across runs emphasizes the stochastic nature of reinforcement learning, suggesting the need for multiple trials to ensure robust evaluation.
